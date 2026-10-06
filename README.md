@@ -4,7 +4,7 @@ A modern, responsive web application built with **React** and **Vite** designed 
 
 ---
 
-## 🚀 Live Demo & Features
+## 🚀 Live Demo & Feature
 
 - **Direct Tableau Public Integration**: Embedded live visualization using responsive iframe architecture without artificial mock charts.
 - **Dual View Modes**:
