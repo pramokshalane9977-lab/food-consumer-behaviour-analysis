@@ -16,24 +16,26 @@ import {
 
 const VIEWS = {
   dashboard: {
-    id: 'dashboard',
-    title: 'Food Consumer Behavior Dashboard',
+    id: 'viz1791356703134',
+    title: 'Food Consumer Behavior Analysis',
     shortName: 'Interactive Dashboard',
     tagline: 'Comprehensive multi-metric dashboard with cross-filtering',
     embedName: 'Foodconsumerbehaviouranalyisi/FoodConsumerBehaviorAnalysis',
     webUrl: 'https://public.tableau.com/views/Foodconsumerbehaviouranalyisi/FoodConsumerBehaviorAnalysis',
     defaultHeight: 880,
-    staticImage: 'https://public.tableau.com/static/images/Fo/Foodconsumerbehaviouranalyisi/FoodConsumerBehaviorAnalysis/1.png'
+    staticImage: 'https://public.tableau.com/static/images/Fo/Foodconsumerbehaviouranalyisi/FoodConsumerBehaviorAnalysis/1.png',
+    rssImage: 'https://public.tableau.com/static/images/Fo/Foodconsumerbehaviouranalyisi/FoodConsumerBehaviorAnalysis/1_rss.png'
   },
   story: {
-    id: 'story',
+    id: 'viz17912899955690',
     title: 'Food Consumer Behavior Story',
     shortName: 'Executive Story Mode',
     tagline: 'Narrative sequential walkthrough of consumer findings',
     embedName: 'Story_17912899955690/FoodConsumerBehavioranalysis',
     webUrl: 'https://public.tableau.com/views/Story_17912899955690/FoodConsumerBehavioranalysis',
     defaultHeight: 920,
-    staticImage: 'https://public.tableau.com/static/images/St/Story_17912899955690/FoodConsumerBehavioranalysis/1.png'
+    staticImage: 'https://public.tableau.com/static/images/St/Story_17912899955690/FoodConsumerBehavioranalysis/1.png',
+    rssImage: 'https://public.tableau.com/static/images/St/Story_17912899955690/FoodConsumerBehavioranalysis/1_rss.png'
   }
 };
 
@@ -42,30 +44,10 @@ export default function DashboardEmbed() {
   const [isLoading, setIsLoading] = useState(true);
   const [reloadKey, setReloadKey] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [heightMode, setHeightMode] = useState('standard'); // 'standard' (850px) | 'tall' (1050px)
+  const [heightMode, setHeightMode] = useState('standard'); // 'standard' | 'tall'
   const containerRef = useRef(null);
 
   const currentView = VIEWS[activeTab];
-
-  // Build the responsive Tableau embed URL with standard parameters
-  const getEmbedUrl = () => {
-    const baseUrl = `https://public.tableau.com/views/${currentView.embedName}`;
-    const params = new URLSearchParams({
-      ':embed': 'y',
-      ':showVizHome': 'no',
-      ':host_url': 'https://public.tableau.com/',
-      ':animate_transition': 'yes',
-      ':display_static_image': 'no',
-      ':display_spinner': 'no',
-      ':display_overlay': 'yes',
-      ':display_count': 'yes',
-      ':language': 'en-US',
-      ':tabs': 'no',
-      ':toolbar': 'yes',
-      '_key': `${reloadKey}`
-    });
-    return `${baseUrl}?${params.toString()}`;
-  };
 
   const handleTabChange = (tabId) => {
     if (tabId !== activeTab) {
@@ -106,22 +88,45 @@ export default function DashboardEmbed() {
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
-  // Fallback safety for iframe load event
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (isLoading) {
-        setIsLoading(false);
-      }
-    }, 12000); // 12 second safety limit for slow connections
-
-    return () => clearTimeout(timer);
-  }, [isLoading, reloadKey, activeTab]);
-
   const targetHeight = isFullscreen 
     ? '100vh' 
     : heightMode === 'tall' 
       ? '1050px' 
       : `${currentView.defaultHeight}px`;
+
+  // Tableau viz_v1.js initialization on mount / tab change / reload
+  useEffect(() => {
+    setIsLoading(true);
+
+    const divElement = document.getElementById(currentView.id);
+    if (divElement) {
+      const vizElement = divElement.getElementsByTagName('object')[0];
+      if (vizElement) {
+        if (divElement.offsetWidth > 800) {
+          vizElement.style.width = '100%';
+          vizElement.style.height = targetHeight;
+        } else if (divElement.offsetWidth > 500) {
+          vizElement.style.width = '100%';
+          vizElement.style.height = targetHeight;
+        } else {
+          vizElement.style.width = '100%';
+          vizElement.style.height = '1800px';
+        }
+        const scriptElement = document.createElement('script');
+        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+        scriptElement.onload = () => {
+          setTimeout(() => setIsLoading(false), 800);
+        };
+        vizElement.parentNode.insertBefore(scriptElement, vizElement);
+      }
+    }
+
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 6000);
+
+    return () => clearTimeout(timer);
+  }, [activeTab, reloadKey, targetHeight, currentView.id]);
 
   return (
     <section id="dashboard" className="dashboard-section">
@@ -250,7 +255,8 @@ export default function DashboardEmbed() {
             className="viz-canvas"
             style={{ 
               height: targetHeight,
-              minHeight: '620px'
+              minHeight: '620px',
+              position: 'relative'
             }}
           >
             {/* Loading Overlay */}
@@ -276,21 +282,38 @@ export default function DashboardEmbed() {
               </div>
             )}
 
-            {/* Responsive Iframe */}
-            <iframe
-              id="tableau-public-iframe"
-              key={`iframe-${activeTab}-${reloadKey}`}
-              src={getEmbedUrl()}
-              title={currentView.title}
-              width="100%"
-              height="100%"
-              frameBorder="0"
-              allowFullScreen={true}
-              loading="eager"
-              onLoad={() => setIsLoading(false)}
-              className={`tableau-iframe ${isLoading ? 'iframe-loading' : 'iframe-ready'}`}
-              allow="fullscreen"
-            />
+            {/* Official Tableau Public Embed Placeholder */}
+            <div 
+              key={`tableau-${activeTab}-${reloadKey}`}
+              className="tableauPlaceholder" 
+              id={currentView.id} 
+              style={{ position: 'relative', width: '100%', height: '100%' }}
+            >
+              <noscript>
+                <a href={currentView.webUrl} target="_blank" rel="noreferrer">
+                  <img 
+                    alt={currentView.title} 
+                    src={currentView.rssImage} 
+                    style={{ border: 'none' }} 
+                  />
+                </a>
+              </noscript>
+              <object className="tableauViz" style={{ display: 'none', width: '100%', height: '100%' }}>
+                <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+                <param name="embed_code_version" value="3" />
+                <param name="site_root" value="" />
+                <param name="name" value={currentView.embedName} />
+                <param name="tabs" value="no" />
+                <param name="toolbar" value="yes" />
+                <param name="static_image" value={currentView.staticImage} />
+                <param name="animate_transition" value="yes" />
+                <param name="display_static_image" value="yes" />
+                <param name="display_spinner" value="yes" />
+                <param name="display_overlay" value="yes" />
+                <param name="display_count" value="yes" />
+                <param name="language" value="en-US" />
+              </object>
+            </div>
           </div>
 
           {/* Viz Footer Bar */}
