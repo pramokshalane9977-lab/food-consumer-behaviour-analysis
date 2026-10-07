@@ -58,10 +58,32 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Data Resources */}
+          {/* Data Resources & Links */}
           <div className="footer-links-col">
-            <h4 className="footer-heading">Resources</h4>
+            <h4 className="footer-heading">Live & Resources</h4>
             <ul className="footer-nav-list">
+              <li>
+                <a 
+                  href="https://food-consumer-behaviour-analysis-hk6g-ocfl4yfw9-pramoksh.vercel.app/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="footer-ext-link"
+                >
+                  <span>Live App (Vercel)</span>
+                  <ExternalLink size={13} />
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://github.com/pramokshalane9977-lab/food-consumer-behaviour-analysis" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="footer-ext-link"
+                >
+                  <span>GitHub Repo</span>
+                  <ExternalLink size={13} />
+                </a>
+              </li>
               <li>
                 <a 
                   href="https://public.tableau.com/views/Foodconsumerbehaviouranalyisi/FoodConsumerBehaviorAnalysis" 
@@ -86,12 +108,12 @@ export default function Footer() {
               </li>
               <li>
                 <a 
-                  href="https://public.tableau.com" 
+                  href="https://drive.google.com/file/d/1e2gDP0EdiNWKQAj7dAK1lc2R6SbJM69R/view?usp=drive_link" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="footer-ext-link"
                 >
-                  <span>Tableau Public Platform</span>
+                  <span>Demo Video</span>
                   <ExternalLink size={13} />
                 </a>
               </li>

@@ -2,9 +2,42 @@
 
 A modern, responsive web application built with **React** and **Vite** designed to showcase an interactive **Tableau Public** business intelligence workbook studying **Food Consumer Behavior**.
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel%20App-00C2FF?style=for-the-badge&logo=vercel)](https://food-consumer-behaviour-analysis-hk6g-ocfl4yfw9-pramoksh.vercel.app/)
+[![Tableau Public](https://img.shields.io/badge/Tableau-Public-E97627?style=for-the-badge&logo=tableau)](https://public.tableau.com/views/Foodconsumerbehaviouranalyisi/FoodConsumerBehaviorAnalysis)
+[![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-8.3-646CFF?style=for-the-badge&logo=vite)](https://vite.dev)
+
 ---
 
-##  Live Demo & Feature
+## 📊 Dashboard
+
+The interactive Tableau Dashboard presents key insights using charts, KPIs, filters, and visual analytics.
+
+🔗 ["View Tableau Dashboard"](https://public.tableau.com/views/Foodconsumerbehaviouranalyisi/FoodConsumerBehaviorAnalysis)
+
+## 📖 Tableau Story
+
+The Tableau Story presents the analysis in a structured manner, covering consumer behaviour, ordering channels, spending, delivery performance, and satisfaction.
+
+🔗 ["View Tableau Story"](https://public.tableau.com/views/Story_17912899955690/FoodConsumerBehavioranalysis)
+
+## 🌐 Web Application
+
+The project is integrated into a simple HTML and CSS web interface and deployed using Vercel.
+
+🔗 ["View Live Website"](https://food-consumer-behaviour-analysis-hk6g-ocfl4yfw9-pramoksh.vercel.app/)
+
+## 🎥 Demo Video
+
+Watch a complete walkthrough demonstration of the interactive dashboard, executive story narrative, and portal features.
+
+🔗 ["View Demo Video"](https://drive.google.com/file/d/1e2gDP0EdiNWKQAj7dAK1lc2R6SbJM69R/view?usp=drive_link)
+
+- 💻 **GitHub Repository**: [https://github.com/pramokshalane9977-lab/food-consumer-behaviour-analysis](https://github.com/pramokshalane9977-lab/food-consumer-behaviour-analysis)
+
+---
+
+## ✨ Features & Architecture
 
 - **Direct Tableau Public Integration**: Embedded live visualization using responsive iframe architecture without artificial mock charts.
 - **Dual View Modes**:
@@ -26,6 +59,7 @@ A modern, responsive web application built with **React** and **Vite** designed 
 - **Icons**: Lucide React
 - **Styling**: Vanilla Modern CSS (CSS custom properties, glassmorphism, responsive grid/flexbox)
 - **Data Engine**: Tableau Public Cloud (`public.tableau.com`)
+- **Deployment Platform**: Vercel Cloud
 
 ---
 
@@ -33,14 +67,16 @@ A modern, responsive web application built with **React** and **Vite** designed 
 
 - **Node.js** (v18.0 or higher recommended)
 - **NPM** (v9.0 or higher)
+- **Git**
 
 ---
 
-## 📦 Installation & Setup
+## 📦 Installation & Local Development
 
 1. **Clone or navigate to the project directory**:
    ```powershell
-   cd e:\project
+   git clone https://github.com/pramokshalane9977-lab/food-consumer-behaviour-analysis.git
+   cd food-consumer-behaviour-analysis
    ```
 
 2. **Install project dependencies**:
@@ -48,36 +84,99 @@ A modern, responsive web application built with **React** and **Vite** designed 
    npm install
    ```
 
+3. **Start Development Server**:
+   ```powershell
+   npm run dev
+   ```
+   Open your browser and visit: **[http://localhost:5173/](http://localhost:5173/)**
+
+   > **Note for Windows PowerShell Users:**
+   > If you encounter a script execution error (`npm.ps1 cannot be loaded`), run directly with:
+   > ```powershell
+   > npm.cmd run dev
+   > ```
+
+4. **Build for Production**:
+   ```powershell
+   npm run build
+   ```
+   The compiled production bundle will be generated inside the `dist/` directory.
+
 ---
 
-## 💻 Running the Application
+## 🚀 Git & Deployment Procedure
 
-### Start Development Server
+Follow these steps to stage changes, commit, push to GitHub, and trigger automatic or manual Vercel deployments:
+
+### Step 1: Check Current Git Status
 ```powershell
-npm run dev
+git status
 ```
-Once started, open your browser and visit: **[http://localhost:5173/](http://localhost:5173/)**
 
-> **Note for Windows PowerShell Users:**
-> If you encounter a script execution error (`npm.ps1 cannot be loaded`), you can either:
-> - Run directly with `npm.cmd`:
->   ```powershell
->   npm.cmd run dev
->   ```
-> - Or enable script execution once:
->   ```powershell
->   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
->   ```
-
-### Build for Production
+### Step 2: Stage Modified Files
+Stage all updated files (or specify individual filenames):
 ```powershell
-npm run build
+git add .
 ```
-The optimized production bundle will be generated inside the `dist/` directory.
 
-### Preview Production Build
+### Step 3: Commit Your Changes
+Create a descriptive commit message:
 ```powershell
-npm run preview
+git commit -m "feat: update live deployment URL and documentation"
+```
+
+### Step 4: Push to GitHub
+Push your local commits to the remote repository branch:
+```powershell
+# If working on the current branch (e.g. new-feature or main):
+git push origin <your-branch-name>
+
+# Example:
+git push origin new-feature
+```
+
+### Step 5: Merge into `main` (If deploying to Production)
+If your Vercel deployment is connected to the `main` branch:
+```powershell
+# Checkout main
+git checkout main
+
+# Pull latest changes from remote
+git pull origin main
+
+# Merge your feature branch
+git merge new-feature
+
+# Push to main to trigger production build on Vercel
+git push origin main
+```
+
+---
+
+## ☁️ Vercel Deployment Guide
+
+### Automatic Continuous Deployment (Recommended)
+1. Link your GitHub repository (`food-consumer-behaviour-analysis`) to your [Vercel Dashboard](https://vercel.com).
+2. Framework Preset: **Vite**
+3. Build Command: `npm run build`
+4. Output Directory: `dist`
+5. Every time you push commits to GitHub (`main` or preview branches), Vercel automatically builds and deploys the new version to:
+   - **Production URL**: [https://food-consumer-behaviour-analysis-hk6g-ocfl4yfw9-pramoksh.vercel.app/](https://food-consumer-behaviour-analysis-hk6g-ocfl4yfw9-pramoksh.vercel.app/)
+
+### Manual Deployment via Vercel CLI
+If you prefer deploying directly from the terminal:
+```powershell
+# 1. Install Vercel CLI globally (one-time)
+npm install -g vercel
+
+# 2. Login to Vercel
+vercel login
+
+# 3. Deploy to Preview
+vercel
+
+# 4. Deploy directly to Production
+vercel --prod
 ```
 
 ---
@@ -98,7 +197,7 @@ npm run preview
 │       ├── Hero.jsx           # Hero banner with CTA and feature highlights
 │       ├── DashboardEmbed.jsx # Responsive Tableau iframe container with controls
 │       ├── AboutSection.jsx   # Research pillars, tech stack info, and FAQ accordion
-│       └── Footer.jsx         # Footer with copyright and "Powered by Tableau Public"
+│       └── Footer.jsx         # Footer with copyright, links, and "Powered by Tableau Public"
 ```
 
 ---
@@ -114,3 +213,4 @@ npm run preview
 
 - © 2026 Analytics Dashboard.
 - Data Visualizations Powered by **Tableau Public**.
+- Deployed on **Vercel**.
